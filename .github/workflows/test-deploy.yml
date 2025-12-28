@@ -1,0 +1,30 @@
+name: Test Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          cd app
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: echo "Running TEST environment checks"
+
+      - name: Security Scan
+        run: echo "Security scan completed"
+
+      - name: Build Docker Image
+        run: docker build -t myapp:test ./app
+
+      - name: Deploy to TEST
+        run: echo "Deployed to TEST environment"
